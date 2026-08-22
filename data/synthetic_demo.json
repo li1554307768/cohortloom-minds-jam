@@ -1,0 +1,46 @@
+{
+  "dataset_label": "SYNTHETIC_DEMO_ONLY",
+  "persona": {
+    "name": "Noah",
+    "description": "A fictional English-language creator teaching practical AI workflows.",
+    "real_user": false
+  },
+  "snapshot": {
+    "week_label": "Synthetic Week 32",
+    "audience_size": 18400,
+    "summary": "Practical teardown content earned stronger save and qualified-reply signals than broad motivational content; all numbers are synthetic.",
+    "synthetic": true
+  },
+  "metrics": [
+    {
+      "platform": "x",
+      "views": 42800,
+      "comments": 116,
+      "saves": 284,
+      "shares": 171,
+      "new_followers": 92,
+      "qualified_replies": 19,
+      "synthetic": true
+    },
+    {
+      "platform": "linkedin",
+      "views": 12600,
+      "comments": 74,
+      "saves": 219,
+      "shares": 63,
+      "new_followers": 58,
+      "qualified_replies": 27,
+      "synthetic": true
+    },
+    {
+      "platform": "youtube",
+      "views": 9100,
+      "comments": 83,
+      "saves": 341,
+      "shares": 97,
+      "new_followers": 124,
+      "qualified_replies": 36,
+      "synthetic": true
+    }
+  ]
+}

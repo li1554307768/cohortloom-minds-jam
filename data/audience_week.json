@@ -1,0 +1,22 @@
+{
+  "dataset_label": "SYNTHETIC_DEMO_ONLY",
+  "week_label": "Synthetic Week 32",
+  "experiment_goal": "Test whether practical teardown content activates quiet viewers without unsolicited outreach.",
+  "weekly_summaries": [
+    {
+      "platform": "x",
+      "observation": "Reach rose, but qualified replies stayed low; concise teardown threads were saved more than motivational posts.",
+      "synthetic": true
+    },
+    {
+      "platform": "linkedin",
+      "observation": "Detailed workflow posts attracted fewer impressions but more substantive comments and profile follows.",
+      "synthetic": true
+    },
+    {
+      "platform": "youtube",
+      "observation": "Step-by-step teardown videos produced the strongest save and returning-viewer signals in this synthetic week.",
+      "synthetic": true
+    }
+  ]
+}
