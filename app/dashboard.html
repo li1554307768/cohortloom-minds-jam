@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CohortLoom</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">PERSISTENT AUDIENCE EXPERIMENT MEMORY</p>
+      <h1>CohortLoom</h1>
+      <p>Turn weekly engagement signals into one bounded, human-reviewed growth experiment.</p>
+      <p><strong>Not an inbox, content-idea generator, correction tool, scheduler, or outreach tool.</strong></p>
+    </div>
+    <div class="safety">
+      <strong>{{ "PAUSED" if state.paused else "ACTIVE" }}</strong>
+      <span>Auto-post: OFF · Outreach: OFF</span>
+      <form method="post" action="/pause">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <input type="hidden" name="paused" value="{{ 0 if state.paused else 1 }}">
+        <button class="{{ 'primary' if state.paused else 'danger' }}">
+          {{ "Resume" if state.paused else "Pause / Kill switch" }}
+        </button>
+      </form>
+    </div>
+  </header>
+
+  <main>
+    {% if notice %}<div class="notice">{{ notice }}</div>{% endif %}
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+    <section class="panel intro">
+      <div>
+        <h2>1. Load a safe weekly pulse</h2>
+        <p>Every metric and persona is synthetic. No platform account is connected.</p>
+      </div>
+      <form method="post" action="/demo/load">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button class="primary" {% if state.paused %}disabled{% endif %}>Load synthetic week</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Cross-platform engagement summary</h2>
+      <div class="cards">
+      {% for metric in state.metrics %}
+        <article class="version-card">
+          <span class="platform">{{ metric.platform }}</span>
+          <small>{{ metric.week_label }} · SYNTHETIC</small>
+          <h3>{{ metric.views }} views · {{ metric.new_followers }} new followers</h3>
+          <p>{{ metric.comments }} comments · {{ metric.saves }} saves · {{ metric.shares }} shares · {{ metric.qualified_replies }} qualified replies</p>
+        </article>
+      {% else %}<p class="empty">Load the synthetic week to begin.</p>{% endfor %}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>2. Record a testable audience hypothesis</h2>
+      {% if state.snapshots %}
+      <form method="post" action="/hypotheses" class="grid-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <label>Weekly snapshot
+          <select name="snapshot_id" required>
+          {% for snapshot in state.snapshots %}
+            <option value="{{ snapshot.id }}">{{ snapshot.week_label }} · {{ snapshot.audience_size }} audience</option>
+          {% endfor %}
+          </select>
+        </label>
+        <label>Audience segment
+          <input name="segment_key" value="quiet_practical_creators" maxlength="100" required>
+        </label>
+        <label class="wide">Hypothesis
+          <input name="assumption" value="Practical teardown posts convert quiet viewers into meaningful participants better than broad motivational posts." maxlength="1200" required>
+        </label>
+        <label class="wide">Evidence basis
+          <input name="evidence_basis" value="YouTube saves increased while X reach grew without a matching increase in qualified replies." maxlength="1500" required>
+        </label>
+        <label class="wide">Risk / uncertainty
+          <input name="risk_note" value="The sample is small and synthetic; test for seven days before generalizing." maxlength="800" required>
+        </label>
+        <button class="primary" {% if state.paused %}disabled{% endif %}>Record hypothesis</button>
+      </form>
+      {% else %}<p class="empty">Load the synthetic week first.</p>{% endif %}
+    </section>
+
+    <section class="panel">
+      <h2>3. Creator approval gate</h2>
+      <div class="stack">
+      {% for item in state.hypotheses %}
+        <article class="row-card">
+          <div>
+            <span class="status {{ item.status|lower }}">{{ item.status }}</span>
+            {% if item.injection_flagged %}<span class="flag">Injection language isolated</span>{% endif %}
+            <h3>{{ item.segment_key }} · {{ item.week_label }}</h3>
+            <p><strong>Hypothesis:</strong> {{ item.assumption }}</p>
+            <p><strong>Evidence:</strong> {{ item.evidence_basis }}</p>
+            <small>{{ item.risk_note }}</small>
+          </div>
+          {% if item.status == 'PENDING_APPROVAL' %}
+          <div class="actions">
+            <form method="post" action="/hypotheses/{{ item.id }}/approve">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button class="primary">Approve hypothesis</button>
+            </form>
+            <form method="post" action="/hypotheses/{{ item.id }}/reject">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button class="secondary">Reject</button>
+            </form>
+          </div>
+          {% endif %}
+        </article>
+      {% else %}<p class="empty">No hypothesis yet.</p>{% endfor %}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>4. Seven-day experiment review</h2>
+      <p class="hint">Plans are suggestions only. CohortLoom cannot publish, message, follow, or contact anyone.</p>
+      <div class="stack">
+      {% for item in state.experiments %}
+        <article class="queue-card">
+          <div class="queue-head">
+            <strong>{{ item.title }}</strong>
+            <span class="status {{ item.status|lower }}">{{ item.status }}</span>
+          </div>
+          <p><strong>WHY NOW:</strong> {{ item.why_now }}</p>
+          <p><strong>SUCCESS:</strong> {{ item.success_condition }}</p>
+          <p><strong>STOP:</strong> {{ item.stop_condition }}</p>
+          {% if item.observed_result %}<p><strong>RESULT:</strong> {{ item.observed_result }}</p>{% endif %}
+          {% if item.review_decision %}<p><strong>DUE REVIEW:</strong> {{ item.review_decision }} · {{ item.review_reason }}</p>{% endif %}
+          {% if item.days %}
+          <div class="timeline">
+          {% for day in item.days %}
+            <div class="draft"><strong>Day {{ day.day }} · {{ day.channel }}</strong><br>{{ day.action }}<br><small>Human check: {{ day.review_checkpoint }}</small></div>
+          {% endfor %}
+          </div>
+          {% else %}<div class="draft">Waiting for a schema-valid cross-session recall.</div>{% endif %}
+          {% if item.status == 'PENDING_REVIEW' %}
+          <form method="post" action="/experiments/{{ item.id }}/result" class="response-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <label>Creator-observed result
+              <input name="observed_result" maxlength="1500" value="{{ item.observed_result or '' }}" required>
+            </label>
+            <button class="ghost">Record result locally</button>
+          </form>
+          <div class="actions">
+            <form method="post" action="/experiments/{{ item.id }}/approve">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button class="primary">Approve manual experiment</button>
+            </form>
+            <form method="post" action="/experiments/{{ item.id }}/reject">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button class="secondary">Reject</button>
+            </form>
+            <form method="post" action="/experiments/{{ item.id }}/review">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button class="ghost">Log WHY NOW review ({{ item.follow_up_count }})</button>
+            </form>
+          </div>
+          {% endif %}
+        </article>
+      {% else %}<p class="empty">No experiment queued.</p>{% endfor %}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>5. Minds continuity</h2>
+      <p class="hint">{{ "Builder API configured. Every send still requires an explicit click." if minds_configured else "Offline mode: packets and strict validation are fully testable without network access." }}</p>
+      <div class="stack">
+      {% for exchange in state.exchanges %}
+        <article class="exchange">
+          <div class="queue-head">
+            <strong>#{{ exchange.id }} {{ exchange.operation }}</strong>
+            <span class="status {{ exchange.status|lower }}">{{ exchange.status }}</span>
+            <span>new session: {{ exchange.session_alias }}</span>
+          </div>
+          <details><summary>Inspect isolated request</summary><pre>{{ exchange.request_body }}</pre></details>
+          {% if exchange.recalled_hypothesis %}<div class="draft"><strong>Recalled approved hypothesis</strong><br>{{ exchange.recalled_hypothesis }}</div>{% endif %}
+          {% if exchange.timestamp_evidence_limitation %}<p class="hint"><strong>Timestamp limitation:</strong> {{ exchange.timestamp_evidence_limitation }}</p>{% endif %}
+          {% if exchange.status == 'PREPARED' %}
+          <form method="post" action="/minds/{{ exchange.id }}/send">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button class="secondary" {% if not minds_configured or state.paused %}disabled{% endif %}>Explicitly send to Minds</button>
+          </form>
+          {% endif %}
+          {% if exchange.status in ['SENT', 'UNCERTAIN'] %}
+          <form method="post" action="/minds/{{ exchange.id }}/sync">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button class="secondary">Check history once</button>
+          </form>
+          {% endif %}
+        </article>
+      {% else %}<p class="empty">Approve a hypothesis to prepare the first private memory request.</p>{% endfor %}
+      </div>
+    </section>
+
+    <section class="panel audit">
+      <h2>Audit trail</h2>
+      <table>
+        <thead><tr><th>Time</th><th>Action</th><th>Entity</th><th>Details</th></tr></thead>
+        <tbody>
+        {% for event in state.audits %}<tr><td>{{ event.occurred_at }}</td><td>{{ event.action }}</td><td>{{ event.entity_type }} #{{ event.entity_id }}</td><td><code>{{ event.details_json }}</code></td></tr>
+        {% else %}<tr><td colspan="4">No events yet.</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
