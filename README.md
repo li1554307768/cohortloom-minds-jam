@@ -75,7 +75,10 @@ output/    generated logo and video artifacts (live evidence stays untracked)
 - The final video keeps `SYNTHETIC DEMO` visible and displays
   `LIVE MINDS CONTINUITY VERIFIED` only because that evidence passed the fail-closed gate.
 - Real users: 0. Real revenue: $0. Automated posts or outreach: 0.
-- Public submission: not performed in this repository task.
+- The source repository is public, while the YouTube demo is uploaded as **Unlisted**.
+- DoraHacks BUIDL **#48044** was submitted to the
+  **Audience growth & community engagement** track and is **Under Review**. This does not
+  mean the BUIDL has been publicly showcased, approved, shortlisted, or awarded.
 
 See [docs/EVIDENCE_STATUS.md](docs/EVIDENCE_STATUS.md) and
 [docs/LIVE_MINDS_EVIDENCE.md](docs/LIVE_MINDS_EVIDENCE.md).
@@ -84,6 +87,7 @@ See [docs/EVIDENCE_STATUS.md](docs/EVIDENCE_STATUS.md) and
 
 - Public repository: https://github.com/li1554307768/cohortloom-minds-jam
 - Unlisted demo video: https://youtu.be/wpb5nt1uYV4
+- DoraHacks submission: BUIDL #48044 — Under Review
 
 ## License
 
