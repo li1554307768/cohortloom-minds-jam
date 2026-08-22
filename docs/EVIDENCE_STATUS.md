@@ -10,10 +10,12 @@ This file records what is verified, what is synthetic, and what remains unverifi
 | Synthetic demo data | VERIFIED | `data/synthetic_demo.json` is explicitly labeled synthetic and is the only demo dataset used in the submission flow. |
 | Local Minds packet rules | VERIFIED | Store, recall, and due-review packets are strictly schema-checked and fail closed on injection, bad shapes, or malformed replies. |
 | Demo video assets | VERIFIED LOCALLY | The 111-second 1920x1080 H.264 MP4 has narration, keeps `SYNTHETIC DEMO` visible, displays `LIVE MINDS CONTINUITY VERIFIED`, has a SHA-256 digest, and returns `MEDIA_VERIFY_OK`. |
+| Public source repository | PUBLISHED | The repository is publicly available at `https://github.com/li1554307768/cohortloom-minds-jam`. |
+| YouTube demo | UNLISTED / CHECKS PASSED | The 1:51 demo is available at `https://youtu.be/wpb5nt1uYV4`. YouTube reported no copyright or Community Guidelines issues. Unlisted is not the same as a publicly listed video. |
 | Live Minds continuity | VERIFIED | A redacted evidence artifact verifies one store, one plan recall, and one due-review recall under the same Mind in three distinct conversations. All three official-history exchanges passed strict schema and timestamp-order checks. |
 | Real users | NONE VERIFIED | No evidence of real user adoption was produced in this task. |
 | Real revenue | NONE VERIFIED | No revenue evidence was produced in this task. |
-| Public submission | NOT PERFORMED | No network publication or external submission was performed in this task. |
+| DoraHacks submission | SUBMITTED / UNDER REVIEW | BUIDL #48044 was submitted to the `Audience growth & community engagement` track. Under Review is submission evidence only; public showcase visibility, organizer approval, shortlisting, and awards are not verified. |
 
 ## What counts as evidence
 
@@ -38,6 +40,9 @@ Use these labels consistently:
 
 - `VERIFIED`
 - `VERIFIED LOCALLY`
+- `PUBLISHED`
+- `UNLISTED / CHECKS PASSED`
+- `SUBMITTED / UNDER REVIEW`
 - `UNVERIFIED`
 - `NOT PERFORMED`
 - `SYNTHETIC ONLY`

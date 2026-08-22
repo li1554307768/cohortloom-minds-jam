@@ -6,7 +6,14 @@ CohortLoom
 
 ## Track
 
-Audience Growth & Community Engagement
+Audience growth & community engagement
+
+## Submission status
+
+- Public source repository: `https://github.com/li1554307768/cohortloom-minds-jam`
+- YouTube demo: `https://youtu.be/wpb5nt1uYV4` — Unlisted, 1:51, copyright and Community Guidelines checks passed
+- DoraHacks: BUIDL #48044 — submitted, Under Review
+- Not claimed: public DoraHacks showcase visibility, organizer approval, shortlisting, or an award
 
 ## One-line summary
 
@@ -54,6 +61,9 @@ Use these claims in the submission:
 - Strict Minds packet rules are implemented
 - Live Minds continuity is verified for one synthetic approved hypothesis across three distinct
   conversations under the same Mind, with strict schema and timestamp-order verification
+- The source repository is public
+- The demo video is uploaded to YouTube as Unlisted and passed YouTube's reported checks
+- DoraHacks BUIDL #48044 is submitted and Under Review
 - Real users and real revenue are not claimed
 
 ## Do not claim
@@ -63,7 +73,7 @@ Use these claims in the submission:
 - automatic posting
 - automatic outreach
 - real creator adoption or measured growth
-- completed public submission unless it really happened
+- public DoraHacks showcase visibility, organizer approval, shortlisting, or an award
 
 ## Tagline options
 
@@ -78,5 +88,6 @@ CohortLoom helps creators keep one decision loop intact from signal to review.
 ## Links
 
 - Public repository: https://github.com/li1554307768/cohortloom-minds-jam
-- Demo video: https://youtu.be/wpb5nt1uYV4
+- Unlisted demo video: https://youtu.be/wpb5nt1uYV4
+- DoraHacks submission: BUIDL #48044 — Under Review
 - Live evidence: `docs/LIVE_MINDS_EVIDENCE.md`

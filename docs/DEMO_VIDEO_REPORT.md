@@ -48,5 +48,10 @@ three-session diagram, synthetic label, verified-live label, and narration were 
 ## Evidence boundary
 
 The MP4 is structurally valid and its verified-live label is gated by the separate redacted
-Minds evidence artifact. The video still does not prove public upload, real users, revenue,
-creator adoption, or growth results. Public submission was not performed in this repository task.
+Minds evidence artifact. It was uploaded to YouTube as an **Unlisted** 1:51 video at
+`https://youtu.be/wpb5nt1uYV4`; YouTube reported no copyright or Community Guidelines issues.
+The upload still does not prove real users, revenue, creator adoption, or growth results.
+
+DoraHacks BUIDL **#48044** was submitted to the
+**Audience growth & community engagement** track and is **Under Review**. That status proves
+submission, not public showcase visibility, organizer approval, shortlisting, or an award.
